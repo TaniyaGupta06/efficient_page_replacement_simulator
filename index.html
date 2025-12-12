@@ -1,0 +1,101 @@
+<!-- index.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Page Replacement Simulator - Animated</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-theme="dark">
+
+  <header>
+    <div>
+      <h1>Page Replacement Simulator</h1>
+      <span style="color:var(--text-muted); font-size:0.9rem;">FIFO | LRU | Optimal | Visualized</span>
+    </div>
+    <button id="themeToggle" class="theme-toggle">
+      <span id="themeIcon">☀️</span> Toggle Theme
+    </button>
+  </header>
+
+  <main class="container">
+
+    <section class="top-section">
+      <div class="card">
+        <h2>1. Configuration</h2>
+        <form id="configForm">
+          <div class="form-grid">
+            <div class="input-group">
+              <label>Reference String <small>(Space separated, e.g. 7 0 1 2)</small></label>
+              <div style="display:flex; gap:8px;">
+                <input type="text" id="refString" placeholder="e.g. 7 0 1 2 0 3 0 4" required>
+                <button type="button" id="randomBtn" class="btn-secondary" title="Randomize">🎲</button>
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label>Number of Frames</label>
+              <input type="number" id="frameCount" min="1" max="10" value="3" required>
+            </div>
+
+            <div class="input-group">
+              <label>Algorithm</label>
+              <select id="algoSelect">
+                <option value="FIFO">First-In First-Out (FIFO)</option>
+                <option value="LRU">Least Recently Used (LRU)</option>
+                <option value="OPT">Optimal (OPT)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="btn-group">
+            <button type="submit" id="runBtn" class="btn-primary">Simulate</button>
+            <button type="button" id="resetBtn" class="btn-secondary">Reset</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="card metrics-card">
+        <h2>2. Performance Metrics</h2>
+        <div class="metrics-grid">
+          <div class="metric-box">
+            <h3>Total Page Faults</h3>
+            <span id="totalFaults" class="metric-val text-danger">-</span>
+          </div>
+          <div class="metric-box">
+            <h3>Total Hits</h3>
+            <span id="totalHits" class="metric-val text-success">-</span>
+          </div>
+          <div class="metric-box">
+            <h3>Hit Ratio</h3>
+            <span id="hitRatio" class="metric-val">-</span>
+          </div>
+          <div class="metric-box">
+            <h3>Fault Ratio</h3>
+            <span id="faultRatio" class="metric-val">-</span>
+          </div>
+        </div>
+        <button id="exportBtn" class="btn-secondary" style="width:100%; margin-top:15px;">Export Results (CSV)</button>
+      </div>
+    </section>
+
+    <section class="card visualization-wrapper">
+      <div class="viz-header">
+        <h2>Visual Execution Steps</h2>
+        <div class="legend">
+          <span class="legend-item"><span class="dot hit"></span> Hit</span>
+          <span class="legend-item"><span class="dot fault"></span> Miss/Fault</span>
+        </div>
+      </div>
+
+      <div id="simContainer" class="sim-container">
+        <div class="placeholder-text">Run the simulation to see the frame visualization.</div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
